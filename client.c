@@ -26,7 +26,23 @@ int main()
     {
         printf("Connection established with server.\n");
     }
-    
+    char buffer[256];
+    while(fgets(buffer, sizeof(buffer), stdin) != NULL)
+    {
+        int recieved_status = recv(client_socket, buffer, sizeof(buffer), 0);
+        if(recieved_status < 0)
+        {
+            printf("Message not recieved.\n");
+        }
 
+        int send_status = recv(client_socket, buffer, sizeof(buffer), 0);
+        if (send_status < 0)
+        {
+            printf("Message not sent.\n");
+        }
+    }
+
+    close(client_socket);
+    
     return 0;
 }
